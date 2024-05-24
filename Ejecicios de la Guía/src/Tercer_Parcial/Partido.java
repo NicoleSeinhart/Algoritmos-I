@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class Partido {
     // Atributos
-    private Equipo local;
-    private Equipo visitante;
+    private EquipoConEstadisticas local;
+    private EquipoConEstadisticas visitante;
     private LocalDate fecha;
     private int golesLocal;
     private int golesVisitante;
 
-    public Partido(Equipo local, Equipo visitante, LocalDate fecha, int golesLocal, int golesVisitante) {
+    public Partido(EquipoConEstadisticas local, EquipoConEstadisticas visitante, LocalDate fecha, int golesLocal, int golesVisitante) {
         this.local = local;
         this.visitante = visitante;
         this.fecha = fecha;
@@ -19,11 +19,11 @@ public class Partido {
         actualizarEstadisticas();
     }
 
-    public Equipo getLocal() {
+    public EquipoConEstadisticas getLocal() {
         return local;
     }
 
-    public Equipo getVisitante() {
+    public EquipoConEstadisticas getVisitante() {
         return visitante;
     }
 
@@ -40,8 +40,10 @@ public class Partido {
     }
 
     private void actualizarEstadisticas() {
-        local.actualizarEstadisticas(golesLocal, golesVisitante);
-        visitante.actualizarEstadisticas(golesVisitante, golesLocal);
-    }
+        boolean esEmpatado = golesLocal == golesVisitante;
+        boolean esGanadoLocal = golesLocal > golesVisitante;
 
+        local.actualizarEstadisticas(golesLocal, golesVisitante, esGanadoLocal, esEmpatado);
+        visitante.actualizarEstadisticas(golesVisitante, golesLocal, !esGanadoLocal && !esEmpatado, esEmpatado);
+    }
 }

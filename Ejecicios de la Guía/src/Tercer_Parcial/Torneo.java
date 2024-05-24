@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.time.LocalDate;
 
 public class Torneo {
-    private Set<Equipo> equipos;
+    private Set<EquipoConEstadisticas> equipos;
     private List<Partido> partidos;
 
     public Torneo() {
@@ -17,15 +17,15 @@ public class Torneo {
         partidos = new ArrayList<>();
     }
 
-    public void cargarEquipo(String nombre, int fans){
-        equipos.add(new Equipo(nombre, fans));
+    public void cargarEquipo(String nombre, int fans) {
+        equipos.add(new EquipoConEstadisticas(nombre, fans));
     }
 
     public void cargarPartido(String nombreLocal, String nombreVisitante, LocalDate fecha, int golesLocal, int golesVisitante) {
-        Equipo equipoLocal = null;
-        Equipo equipoVisitante = null;
+        EquipoConEstadisticas equipoLocal = null;
+        EquipoConEstadisticas equipoVisitante = null;
         // Buscar los equipos por sus nombres en la lista de equipos del torneo
-        for (Equipo equipo : equipos) {
+        for (EquipoConEstadisticas equipo : equipos) {
             if (equipo.getNombre().equals(nombreLocal)) {
                 equipoLocal = equipo;
             }
@@ -42,8 +42,8 @@ public class Torneo {
             System.out.println("Error: Uno o ambos equipos no están registrados en el torneo.");
         }
     }
-    
-    public void mostrarPartidosFecha(LocalDate fecha){
+
+    public void mostrarPartidosFecha(LocalDate fecha) {
         for (Partido partido : partidos) {
             if (partido.getFecha().equals(fecha)) {
                 System.out.println("Fecha: " + fecha.toString() + ", " +
@@ -51,24 +51,19 @@ public class Torneo {
                         partido.getVisitante().getNombre() + " (" + partido.getGolesVisitante() + ")");
             }
         }
-
     }
 
-    public void  mostrarTabla(){
+    public void mostrarTabla() {
         System.out.println("Equipo | Ju | Pu | Ga | Em | Pe | GF | GC | DG");
-        List<Equipo> listaEquipos = new ArrayList<>(equipos);
-        listaEquipos.sort(Comparator.comparing(Equipo::getPuntos).reversed()
-                                    .thenComparing(Equipo::getDG));
-        for (Equipo equipo : listaEquipos) {
+        List<EquipoConEstadisticas> listaEquipos = new ArrayList<>(equipos);
+        listaEquipos.sort(Comparator.comparing(EquipoConEstadisticas::getPuntos).reversed()
+                                    .thenComparing(EquipoConEstadisticas::getDG));
+        for (EquipoConEstadisticas equipo : listaEquipos) {
             System.out.println(equipo.getNombre() + " | " + equipo.getPartidos() + " | " +
                     equipo.getPuntos() + " | " + equipo.getGanados() + " | " +
                     equipo.getEmpatados() + " | " + equipo.getPerdidos() + " | " +
                     equipo.getGF() + " | " + equipo.getGC() + " | " +
                     equipo.getDG() + " |");
         }
-
     }
-
-
-
 }
