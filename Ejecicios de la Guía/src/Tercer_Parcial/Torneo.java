@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.time.LocalDate;
 
 public class Torneo {
-    private Set<EquipoConEstadisticas> equipos;
+    private Set<Equipo> equipos;
     private List<Partido> partidos;
 
     public Torneo() {
@@ -18,14 +18,14 @@ public class Torneo {
     }
 
     public void cargarEquipo(String nombre, int fans) {
-        equipos.add(new EquipoConEstadisticas(nombre, fans));
+        equipos.add(new Equipo(nombre, fans));
     }
 
     public void cargarPartido(String nombreLocal, String nombreVisitante, LocalDate fecha, int golesLocal, int golesVisitante) {
-        EquipoConEstadisticas equipoLocal = null;
-        EquipoConEstadisticas equipoVisitante = null;
+        Equipo equipoLocal = null;
+        Equipo equipoVisitante = null;
         // Buscar los equipos por sus nombres en la lista de equipos del torneo
-        for (EquipoConEstadisticas equipo : equipos) {
+        for (Equipo equipo : equipos) {
             if (equipo.getNombre().equals(nombreLocal)) {
                 equipoLocal = equipo;
             }
@@ -55,10 +55,10 @@ public class Torneo {
 
     public void mostrarTabla() {
         System.out.println("Equipo | Ju | Pu | Ga | Em | Pe | GF | GC | DG");
-        List<EquipoConEstadisticas> listaEquipos = new ArrayList<>(equipos);
-        listaEquipos.sort(Comparator.comparing(EquipoConEstadisticas::getPuntos).reversed()
-                                    .thenComparing(EquipoConEstadisticas::getDG));
-        for (EquipoConEstadisticas equipo : listaEquipos) {
+        List<Equipo> listaEquipos = new ArrayList<>(equipos);
+        listaEquipos.sort(Comparator.comparing(Equipo::getPuntos).reversed()
+                                    .thenComparing(Equipo::getDG));
+        for (Equipo equipo : listaEquipos) {
             System.out.println(equipo.getNombre() + " | " + equipo.getPartidos() + " | " +
                     equipo.getPuntos() + " | " + equipo.getGanados() + " | " +
                     equipo.getEmpatados() + " | " + equipo.getPerdidos() + " | " +
