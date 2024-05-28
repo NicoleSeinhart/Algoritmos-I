@@ -5,7 +5,7 @@ public class Vehiculo {
     private double montoCompra;
     private int añoFabricacion;
 
-    public Vehiculo(String dominio, int añoFabricacion, double montoCompra) {
+    public Vehiculo(String dominio, double montoCompra, int añoFabricacion) {
         this.patente = patente;
         this.añoFabricacion = añoFabricacion;
         this.montoCompra = montoCompra;
