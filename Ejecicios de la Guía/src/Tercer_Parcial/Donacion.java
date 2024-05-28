@@ -46,10 +46,6 @@ public class Donacion {
         return estado;
     }
 
-    public void setEstado(EstadoDonacion estado) {
-        this.estado = estado;
-    }
-
     public void setCobrada() {
         this.estado = EstadoDonacion.COBRADA;
     }
