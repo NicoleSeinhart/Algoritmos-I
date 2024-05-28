@@ -43,4 +43,20 @@ public class Donacion {
         "-  Monto: " + monto;
     }
 
+     public Donante getDonante() {
+        return donante;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public EstadoDonacion getEstado() {
+        return estado;
+    }
+
 }
