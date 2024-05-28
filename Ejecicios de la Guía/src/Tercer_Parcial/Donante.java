@@ -29,4 +29,22 @@ public class Donante {
         return "(" + id_donante + ") " + apellido + ", " + nombre;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Donante donante = (Donante) o;
+
+        if (!nombre.equals(donante.nombre)) return false;
+        return apellido.equals(donante.apellido);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nombre.hashCode();
+        result = 31 * result + apellido.hashCode();
+        return result;
+    }
+
 }
