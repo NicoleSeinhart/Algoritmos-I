@@ -35,4 +35,7 @@ public class Donante {
         return result;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
 }
