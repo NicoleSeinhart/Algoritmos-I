@@ -12,18 +12,6 @@ public class Donante {
         this.id_donante = ++idCounter;
     }
 
-    public int getId() {
-        return id_donante;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
     @Override
     public String toString() {
         return "(" + id_donante + ") " + apellido + ", " + nombre;
