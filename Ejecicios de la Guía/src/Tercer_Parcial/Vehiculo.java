@@ -22,12 +22,4 @@ public class Vehiculo {
     public double getMontoCompra() {
         return montoCompra;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\n-- Vehiculo --\n" +
-                "- Dominio: " + getDominio() + "\n" +
-                "- Año: " + getAñoFabricacion() + "\n" +
-                "- Monto compra: " + getMontoCompra();
-    }
 }

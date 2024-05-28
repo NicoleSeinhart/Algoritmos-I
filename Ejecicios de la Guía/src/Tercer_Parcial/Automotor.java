@@ -19,4 +19,16 @@ public class Automotor extends Poliza {
         int antiguedad = fechaInicio.getYear() - vehiculo.getAñoFabricacion();
         return vehiculo.getMontoCompra() * (1-0.05*antiguedad);
     }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n-- Vehiculo --\n" +
+                "- Dominio: " + vehiculo.getDominio() + "\n" +
+                "- Año: " + vehiculo.getAñoFabricacion() + "\n" +
+                "- Monto compra: " + vehiculo.getMontoCompra();
+    }
 }
