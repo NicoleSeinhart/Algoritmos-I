@@ -3,12 +3,13 @@ package Tercer_Parcial;
 import java.time.LocalDate;
 
 public class Donacion {
+    
     enum EstadoDonacion {
     PENDIENTE,
     RECHAZADA,
     COBRADA
 }
-    
+
     private Donante donante;
     private LocalDate fecha;
     private double monto;
