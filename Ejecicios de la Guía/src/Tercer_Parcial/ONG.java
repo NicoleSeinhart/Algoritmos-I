@@ -19,12 +19,16 @@ public class ONG {
     }
 
     public Donante registrarDonante(String nombre, String apellido) {
-        String key = nombre + " " + apellido;
-        if (donantes.containsKey(key)) {
-            return donantes.get(key);
-        }
         Donante donante = new Donante(nombre, apellido);
-        donantes.put(key, donante);
+        if (donantes.contains(donante)) {
+            for (Donante d : donantes) {
+                if (d.equals(donante)) {
+                    return d;
+                }
+            }
+        } else {
+            donantes.add(donante);
+        }
         return donante;
     }
 
