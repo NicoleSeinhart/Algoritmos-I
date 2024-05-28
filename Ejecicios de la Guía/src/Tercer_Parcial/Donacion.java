@@ -26,26 +26,6 @@ public class Donacion {
         this.id_donacion = ++idCounter;
     }
 
-    public int getId() {
-        return id_donacion;
-    }
-
-    public Donante getDonante() {
-        return donante;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public EstadoDonacion getEstado() {
-        return estado;
-    }
-
     public void setCobrada() {
         this.estado = EstadoDonacion.COBRADA;
     }
