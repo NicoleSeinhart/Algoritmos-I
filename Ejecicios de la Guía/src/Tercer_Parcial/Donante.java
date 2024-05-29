@@ -1,15 +1,15 @@
 package Tercer_Parcial;
+import java.util.Objects;
 
 public class Donante {
     private String nombre;
     private String apellido;
     private int id_donante;
-    private static int idCounter = 0;
 
-    public Donante(String nombre, String apellido) {
+    public Donante(String nombre, String apellido, int id_donante) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.id_donante = ++idCounter;
+        this.id_donante = id_donante;
     }
 
     @Override
@@ -23,16 +23,13 @@ public class Donante {
         if (o == null || getClass() != o.getClass()) return false;
 
         Donante donante = (Donante) o;
-
-        if (!nombre.equals(donante.nombre)) return false;
-        return apellido.equals(donante.apellido);
+        return this.nombre.equals(donante.nombre) &&
+                this.apellido == donante.apellido;
     }
 
     @Override
     public int hashCode() {
-        int result = nombre.hashCode();
-        result = 31 * result + apellido.hashCode();
-        return result;
+        return Objects.hash(nombre, apellido);
     }
 
     public String getNombre() {

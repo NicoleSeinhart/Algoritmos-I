@@ -2,97 +2,95 @@ package Tercer_Parcial;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Comparator;
 
 public class ONG {
     private String nombre;
-    private Map<String, Donante> donantes;
+    private  List<Donante> donantes;
     private List<Donacion> donaciones;
+    private int prox_id_donante;
 
     public ONG(String nombre) {
         this.nombre = nombre;
-        this.donantes = new HashMap<>();
+        this.donantes = new ArrayList<>();
         this.donaciones = new ArrayList<>();
+        this.prox_id_donante = 0;
     }
 
     public Donante registrarDonante(String nombre, String apellido) {
-        Donante donante = new Donante(nombre, apellido);
-        if (donantes.contains(donante)) {
-            for (Donante d : donantes) {
-                if (d.equals(donante)) {
-                    return d;
-                }
-            }
-        } else {
-            donantes.add(donante);
+        Donante donante = new Donante(nombre, apellido, prox_id_donante);
+        int indice = donantes.indexOf(donante);
+        if (indice > -1) {
+            return donantes.get(indice);
         }
+        prox_id_donante++;
+        donantes.add(donante);
         return donante;
     }
 
-    public Donacion cargarDonacion(Donante donante, LocalDate fecha, double monto){
+    public Donacion cargarDonacion(Donante donante, LocalDate fecha, float monto){
         Donacion donacion = new Donacion(donante, fecha, monto);
         donaciones.add(donacion); 
         return donacion;
     }
 
     public void mostrarDonantes(){
-        List<Donante> listaDonantes = new ArrayList<>(donantes.values());
-        listaDonantes.sort(Comparator.comparing(Donante::getNombre));
-
-        System.out.println("Listado de donantes de Codigo Verde");
-        for (Donante donante : listaDonantes) {
-            System.out.println(donante);
+        String salida = "Listado de donantes de " + nombre;
+        for (Donante donante : donantes) {
+            salida += "\n";
+            salida += donante.toString();
         }
+        System.out.println(salida);
     }
     public void mostrarDonaciones(){
-        donaciones.sort(Comparator.comparing(Donacion::getFecha));
-        System.out.println("Listado de donaciones de Codigo Verde");
+        String salida = "Listado de donaciones de " + nombre;
+        
         for (Donacion donacion : donaciones) {
-            System.out.println(donacion);
+            salida += "\n";
+            salida += donacion;
         }
+        System.out.println(salida);
     }
+
     public void mostrarResultadoFecha(LocalDate fechaLimite){
+        String salida = "Estado de Resultado de " + nombre + " al " + fechaLimite;
         int cobradas = 0;
         int rechazadas = 0;
         int pendientes = 0;
-        double montoTotalCobradas = 0;
-        double maxCobrada = Double.MIN_VALUE;
-        double minCobrada = Double.MAX_VALUE;
+        float montoTotalCobradas = 0;
+        float maxCobrada = Float.MIN_VALUE;
+        float minCobrada = Float.MAX_VALUE;
 
         for (Donacion donacion : donaciones) {
-            if (donacion.getFecha().isAfter(fechaLimite)) {
-                continue;
-            }
-            switch (donacion.getEstado()) {
-                case COBRADA:
-                    cobradas++;
-                    double monto = donacion.getMonto();
-                    montoTotalCobradas += monto;
-                    if (monto > maxCobrada) maxCobrada = monto;
-                    if (monto < minCobrada) minCobrada = monto;
-                    break;
-                case RECHAZADA:
-                    rechazadas++;
-                    break;
-                case PENDIENTE:
-                    pendientes++;
-                    break;
+            if (donacion.esPreviaA(fechaLimite)) {
+                if (donacion.estaCobrada()) {
+                    cobradas += 1;
+                    montoTotalCobradas += donacion.getMonto();
+                    if (maxCobrada < donacion.getMonto()) {
+                        maxCobrada = donacion.getMonto();
+                    }
+                    if (minCobrada > donacion.getMonto()) {
+                        minCobrada = donacion.getMonto();
+                    }
+                }
+                if (donacion.estaRechazada())
+                    rechazadas += 1;
+                if (donacion.estaPendiente())
+                    pendientes += 1;
             }
         }
-
-        System.out.println("Estado de Resultado de Codigo Verde al " + fechaLimite);
-        System.out.println("Cobradas: " + cobradas);
-        System.out.println("Rechazadas: " + rechazadas);
-        System.out.println("Pendientes: " + pendientes);
-
+        
+        salida += "\n- Cobradas: " + cobradas;
+        salida += "\n- Rechazadas: " + rechazadas;
+        salida += "\n- Pendientes: " + pendientes;
         if (cobradas > 0) {
-            System.out.println("Monto Total: $ " + montoTotalCobradas);
-            System.out.println("Monto máximo: $ " + maxCobrada);
-            System.out.println("Monto mínimo: $ " + minCobrada);
-            System.out.println("Monto medio: $ " + (montoTotalCobradas / cobradas));
+            salida += "\n- Monto Total: " + montoTotalCobradas;
+            salida += "\n- Monto máximo: " + maxCobrada;
+            salida += "\n- Monto mínimo: " + minCobrada;
+            salida += "\n- Monto medio: " + montoTotalCobradas / cobradas;
         }
+        System.out.println(salida);
     }
 }
