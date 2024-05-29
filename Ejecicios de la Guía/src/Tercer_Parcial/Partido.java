@@ -9,41 +9,30 @@ public class Partido {
     private LocalDate fecha;
     private int golesLocal;
     private int golesVisitante;
+    private TablaTorneo tablaTorneo;
 
-    public Partido(Equipo local, Equipo visitante, LocalDate fecha, int golesLocal, int golesVisitante) {
+    public Partido(Equipo local, Equipo visitante, LocalDate fecha, int golesLocal, int golesVisitante, TablaTorneo tablaTorneo) {
         this.local = local;
         this.visitante = visitante;
         this.fecha = fecha;
         this.golesLocal = golesLocal;
         this.golesVisitante = golesVisitante;
+        this.tablaTorneo = tablaTorneo;
         actualizarEstadisticas();
     }
 
-    public Equipo getLocal() {
-        return local;
-    }
-
-    public Equipo getVisitante() {
-        return visitante;
+    private void actualizarEstadisticas() {
+        tablaTorneo.actualizarEstadisticas(local, visitante, golesLocal, golesVisitante);
     }
 
     public LocalDate getFecha() {
         return fecha;
     }
 
-    public int getGolesLocal() {
-        return golesLocal;
-    }
-
-    public int getGolesVisitante() {
-        return golesVisitante;
-    }
-
-    private void actualizarEstadisticas() {
-        boolean esEmpatado = golesLocal == golesVisitante;
-        boolean esGanadoLocal = golesLocal > golesVisitante;
-
-        local.actualizarEstadisticas(golesLocal, golesVisitante, esGanadoLocal, esEmpatado);
-        visitante.actualizarEstadisticas(golesVisitante, golesLocal, !esGanadoLocal && !esEmpatado, esEmpatado);
+    @Override
+    public String toString() {
+        return "Fecha: " + fecha.toString() + ", " +
+               local.getNombre() + " (" + golesLocal + ") - " +
+               visitante.getNombre() + " (" + golesVisitante + ")";
     }
 }
