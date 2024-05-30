@@ -23,12 +23,9 @@ public class Automotor extends Poliza {
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
-
+    
     @Override
     public String toString() {
-        return super.toString() + "\n-- Vehiculo --\n" +
-                "- Dominio: " + vehiculo.getDominio() + "\n" +
-                "- Año: " + vehiculo.getAñoFabricacion() + "\n" +
-                "- Monto compra: " + vehiculo.getMontoCompra();
+        return super.toString() + "\n" + vehiculo.toString();
     }
 }

@@ -17,8 +17,8 @@ public class Poliza {
         this.costoAnual = costoAnual;;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public boolean estaVigente(LocalDate fecha) {
+        return !fecha.isBefore(fechaInicio) && !fecha.isAfter(fechaFin);
     }
 
     public LocalDate getFechaInicio() {
@@ -27,18 +27,6 @@ public class Poliza {
 
     public LocalDate getFechaFin() {
         return fechaFin;
-    }
-
-    public double getMontoAsegurado() {
-        return montoAsegurado;
-    }
-
-    public double getCostoAnual() {
-        return costoAnual;
-    }
-
-    public boolean estaVigente(LocalDate fecha) {
-        return !fecha.isBefore(fechaInicio) && !fecha.isAfter(fechaFin);
     }
 
     @Override

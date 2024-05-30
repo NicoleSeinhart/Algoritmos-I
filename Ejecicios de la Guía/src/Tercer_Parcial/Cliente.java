@@ -14,18 +14,6 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
     public int getEdad(LocalDate fecha) {
         return (int) ChronoUnit.YEARS.between(fechaNacimiento, fecha);
     }

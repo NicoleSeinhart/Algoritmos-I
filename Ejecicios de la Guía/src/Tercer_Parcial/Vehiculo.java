@@ -5,21 +5,25 @@ public class Vehiculo {
     private double montoCompra;
     private int añoFabricacion;
 
-    public Vehiculo(String dominio, double montoCompra, int añoFabricacion) {
+    public Vehiculo(String patente, double montoCompra, int añoFabricacion) {
         this.patente = patente;
         this.añoFabricacion = añoFabricacion;
         this.montoCompra = montoCompra;
     }
 
-    public String getDominio() {
-        return patente;
+    public double getMontoCompra() {
+        return montoCompra;
     }
 
     public int getAñoFabricacion() {
         return añoFabricacion;
     }
 
-    public double getMontoCompra() {
-        return montoCompra;
+    @Override
+    public String toString() {
+        return "-- Vehiculo --\n" +
+                "- Dominio: " + patente + "\n" +
+                "- Año: " + añoFabricacion + "\n" +
+                "- Monto compra: " + montoCompra;
     }
 }
